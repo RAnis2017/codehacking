@@ -1,0 +1,35 @@
+@extends('layouts.admin')
+@section('content')
+    <h1>Usuarios</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Fecha modificación</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if($users)
+            @foreach($users as $user)
+            <tr>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->role ? $user->role->name : '-' }}</td>
+                <td>{{ $user->is_active == 1 ? 'Activado' : 'No activado' }}</td>
+                <td>{{$user->created_at->diffForHumans()}}</td>
+                <td>{{$user->updated_at->diffForHumans()}}</td>
+            </tr>
+            @endforeach
+        @endif
+        </tbody>
+    </table>
+@stop
+@section('footer')
+
+@stop
