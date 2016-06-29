@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersEditRequest;
 use App\Http\Requests\UsersRequest;
 use App\Photo;
 use App\Role;
@@ -49,7 +50,15 @@ class AdminUsersController extends Controller
 //        User::create($request->all());
 //        return redirect('/admin/users');
 
-        $input = $request->all();
+        // Si la contraseña está vacía no se pasa cini parámetro.
+        if(trim($request->password) == '') {
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            // Encripto contraseña.
+            $input['password'] = bcrypt($request->password);
+        }
+        
         if($file = $request->file('photo_id')) {
             // le cambio el nombre a la imagen, con la fecha delante y concatenando el nombre original de la foto.
             $name = time() . $file->getClientOriginalName();
@@ -60,8 +69,7 @@ class AdminUsersController extends Controller
 
             $input['photo_id'] = $photo->id;
         }
-        // Encripto contraseña
-        $input['password'] = bcrypt($request->password);
+
         // Persistimos el usuario.
         User::create($input);
 //        return $request->all();
@@ -89,7 +97,10 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+        $roles = Role::lists('name', 'id')->all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -99,9 +110,32 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
-        //
+        // Buscamos el usuario con el $id proporcionado.
+        $user = User::findOrFail($id);
+
+        if(trim($request->password) == '') {
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            // Encripto contraseña.
+            $input['password'] = bcrypt($request->password);
+        }
+        
+        // Miramos si se ha introducido una imagen.
+        // En dicho caso, la movemos al directorio indicado.
+        // Almacenamos en el array input el photo_id recibido de la petición
+        if($file = $request->file('photo_id')) {
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        // Actualizamos los datos de en la tabla Users con el input que hemos rellenado anteriormente.
+        $user->update($input);
+
+        return redirect('/admin/users');
     }
 
     /**
