@@ -28,4 +28,8 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo('App\Role');
     }
+    // Relación OneToOne Users-Photos
+    public function photo() {
+        return $this->belongsTo('App\Photo');
+    }
 }
