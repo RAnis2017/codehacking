@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -118,6 +119,7 @@ class AdminUsersController extends Controller
         if(trim($request->password) == '') {
             $input = $request->except('password');
         } else {
+            // Recojo toda la petición y la almaceno en un array $input.
             $input = $request->all();
             // Encripto contraseña.
             $input['password'] = bcrypt($request->password);
@@ -146,6 +148,19 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Busco el usuario de la BBDD.
+        $user = User::findOrFail($id);
+        // Borramos la imagen del path.
+        // No hace falta incluir el path de la carpeta /images/ porque ya está declarada en el accesor.
+//        unlink(public_path() . '/images/' . $user->photo->file);
+        // Quedaría de la siguiente forma.
+        unlink(public_path() . $user->photo->file);
+        // Borro el usuario.
+        $user->delete();
+
+        // Feedback de la acción.
+        Session::flash('deleted_user', 'El usuario: ' . $user->name . " ha sido eliminado.");
+        
+        return redirect('/admin/users');
     }
 }
