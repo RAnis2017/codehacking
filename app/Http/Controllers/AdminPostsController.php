@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -128,11 +129,13 @@ class AdminPostsController extends Controller
         // Busco el post
         $post = Post::findOrFail($id);
         // Borro la img del path.
-        unlink(public_path() .$post->photo->file);
+        if($post->photo_id != 0) {
+            unlink(public_path() . $post->photo->file);
+        }
         // Borro el post
         $post->delete();
-        // Mensaje guardado en cookie de sesión, para dar feedback de la acción.g
-        Session:flash('deleted_post', 'El post: "' . $post->title . '" ha sido eliminado');
+        // Mensaje guardado en cookie de sesión, para dar feedback de la acción.
+        Session::flash('deleted_post', 'El post: "' . $post->title . '" ha sido eliminado');
 
         return redirect('/admin/posts');
     }

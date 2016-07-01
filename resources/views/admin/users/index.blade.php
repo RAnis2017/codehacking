@@ -12,6 +12,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Foto</th>
                 <th>Nombre</th>
@@ -26,6 +27,7 @@
         @if($users)
             @foreach($users as $user)
             <tr>
+                <td><a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning" role="button">Editar</a></td>
                 <td>{{ $user->id }}</td>
                 <td><img src="{{ $user->photo ? $user->photo->file : 'http://placehold.it/50x50'}}" alt="" height="50px" class="img-rounded"></td>
                 <td><a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->name }}</a></td>
