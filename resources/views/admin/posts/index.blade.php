@@ -4,6 +4,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>Id</th>
                 <th>Foto</th>
                 <th>Creador</th>
@@ -18,6 +19,7 @@
         @if($posts)
             @foreach($posts as $post)
             <tr>
+                <td><a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning" role="button">Editar</a></td>
                 <td>{{ $post->id }}</td>
                 <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" alt="" height="50"></td>
                 <td><a href="{{ route('admin.users.edit', $post->user_id) }}">{{ $post->user->name }}</a></td>

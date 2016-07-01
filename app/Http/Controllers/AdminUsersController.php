@@ -159,7 +159,7 @@ class AdminUsersController extends Controller
         $user->delete();
 
         // Feedback de la acción.
-        Session::flash('deleted_user', 'El usuario: ' . $user->name . " ha sido eliminado.");
+        Session::flash('deleted_user', 'El usuario: ' . $user->name . ' ha sido eliminado.');
         
         return redirect('/admin/users');
     }
