@@ -8,6 +8,13 @@
             <p class="bg-danger">{{ session('deleted_user') }}</p>
         </div>
     @endif
+    @if(Session::has('created_user'))
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="bg-success">{{ session('created_user') }}</p>
+        </div>
+    @endif
     <h1>Usuarios</h1>
     <table class="table">
         <thead>

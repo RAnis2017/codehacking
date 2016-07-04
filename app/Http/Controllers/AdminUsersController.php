@@ -72,8 +72,10 @@ class AdminUsersController extends Controller
         }
 
         // Persistimos el usuario.
-        User::create($input);
+        $user = User::create($input);
 //        return $request->all();
+        // Feedback de la acción.
+        Session::flash('created_user', 'El usuario: ' . $user->name . ' ha sido creado.');
         return redirect('/admin/users');
     }
 
@@ -154,7 +156,10 @@ class AdminUsersController extends Controller
         // No hace falta incluir el path de la carpeta /images/ porque ya está declarada en el accesor.
 //        unlink(public_path() . '/images/' . $user->photo->file);
         // Quedaría de la siguiente forma.
-        unlink(public_path() . $user->photo->file);
+        // Si no hay foto no la borro. Es un fix de verificación. Evita un pete inesperado al borrar user.
+        if($user->photo_id != 0) {
+            unlink(public_path() . $user->photo->file);
+        }
         // Borro el usuario.
         $user->delete();
 
