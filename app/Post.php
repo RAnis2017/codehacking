@@ -24,8 +24,13 @@ class Post extends Model
         return $this->belongsTo('App\Photo');
     }
     
-    // Relación
+    // Relación Categories.
     public function category() {
         return $this->belongsTo('App\Category');
+    }
+    
+    // Relación OneToMany Comments
+    public function comments() {
+        return $this->hasMany('App\Post');
     }
 }

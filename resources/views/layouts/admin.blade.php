@@ -137,11 +137,12 @@
                                 <li>
                                     <a href="{{ route('admin.posts.index') }}">Ver Posts</a>
                                 </li>
-
                                 <li>
                                     <a href="{{ route('admin.posts.create') }}">Crear Post</a>
                                 </li>
-
+                                <li>
+                                    <a href="{{ route('admin.comments.index') }}">Comentarios</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -149,10 +150,7 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Categorías<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ route('admin.categories.index') }}">Ver Categorías</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('admin.categories.create') }}">Crear Categoría</a>
+                                    <a href="{{ route('admin.categories.index') }}">Ver/Crear Categorías</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
