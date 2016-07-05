@@ -14,7 +14,6 @@
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
 
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,12 +23,10 @@
 
     @yield('styles')
 
-
 </head>
 <body id="admin-page">
 
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -42,12 +39,7 @@
                 <a class="navbar-brand" href="/">Inicio</a>
             </div>
             <!-- /.navbar-header -->
-
-
-
             <ul class="nav navbar-top-links navbar-right">
-
-
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -65,14 +57,7 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
-
-
             </ul>
-
-
-
-
-
 
             {{--<ul class="nav navbar-nav navbar-right">--}}
             {{--@if(auth()->guest())--}}
@@ -94,10 +79,6 @@
             {{--@endif--}}
             {{--</ul>--}}
 
-
-
-
-
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -115,18 +96,15 @@
                         <li>
                             <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Panel de Control</a>
                         </li>
-
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Usuarios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ route('admin.users.index') }}">Ver Usuarios</a>
                                 </li>
-
                                 <li>
                                     <a href="{{ route('admin.users.create') }}">Crear Usuario</a>
                                 </li>
-
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -169,7 +147,6 @@
                                 <li>
                                     <a href="{{ route('admin.media.index') }}">Ver Media</a>
                                 </li>
-
                                 <li>
                                     <a href="{{ route('admin.media.create') }}">Subir Media</a>
                                 </li>
@@ -294,7 +271,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header"></h1>
-
                     @yield('content')
                 </div>
                 <!-- /.col-lg-12 -->

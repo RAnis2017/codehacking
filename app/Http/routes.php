@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/post/{id}', ['as' => 'home.post', 'uses' => 'AdminPostsController@post']);
 
 // Grupo de ruteo, para mayor seguridad.
 //// Este grupo hace que los usuarios que no sean administradores no puedan entrar al panel de control.
