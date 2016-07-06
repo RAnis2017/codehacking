@@ -31,6 +31,6 @@ class Post extends Model
     
     // Relación OneToMany Comments
     public function comments() {
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Comment');
     }
 }

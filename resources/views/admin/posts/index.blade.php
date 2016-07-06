@@ -11,6 +11,7 @@
                 <th>Categoría</th>
                 <th>Título</th>
                 <th>Cuerpo</th>
+                <th><i class="fa  fa-comments"></i></th>
                 <th>Fecha de Creación</th>
                 <th>Fecha de Modificación</th>
             </tr>
@@ -26,6 +27,7 @@
                 <td>{{ $post->category ? $post->category->name : '-' }}</td>
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->body}}</td>
+                <td><a href="{{ route('admin.comments.show', $post->id) }}">{{ count($post->comments) }}</a></td>
                 <td>{{ $post->created_at->diffForHumans() }}</td>
                 <td>{{ $post->updated_at->diffForHumans() }}</td>
             </tr>
