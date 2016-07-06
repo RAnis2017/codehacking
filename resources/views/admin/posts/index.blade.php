@@ -25,7 +25,7 @@
                 <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" alt="" height="50"></td>
                 <td><a href="{{ route('admin.users.edit', $post->user_id) }}">{{ $post->user->name }}</a></td>
                 <td>{{ $post->category ? $post->category->name : '-' }}</td>
-                <td>{{ $post->title }}</td>
+                <td><a href="{{ route('home.post', $post->slug) }}">{{ $post->title }}</a></td>
                 <td>{{ $post->body}}</td>
                 <td><a href="{{ route('admin.comments.show', $post->id) }}">{{ count($post->comments) }}</a></td>
                 <td>{{ $post->created_at->diffForHumans() }}</td>

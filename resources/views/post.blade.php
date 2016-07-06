@@ -57,39 +57,56 @@
                     <p>{{ $comment->body }}</p>
                     @if(count($comment->replies) > 0)
                         @foreach($comment->replies as $reply)
-
-                            <!-- Nested Comment -->
-                            <div id="nested-comment" class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="{{ $reply->photo }}" height="64px" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">{{ $reply->author }}
-                                        <small>{{ $reply->created_at->format('d-m-Y H:m') }}</small>
-                                    </h4>
-                                    <p>{{ $reply->body }}</p>
-                                </div>
-                                <div class="comment-reply-container">
-                                    <button class="toggle-reply btn btn-primary pull-right">Responder</button>
-                                    <div class="comment-reply  col-sm-6">
-                                        {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
-                                        <div class="form-group">
-                                            <input type="hidden" name="comment_id" value="{{ $comment->id }}">
-                                            {!! Form::label('body', 'Comentario:') !!}
-                                            {!! Form::textarea('body', null, ['class'=>'form-control', 'rows' => 1]) !!}
-                                        </div>
-
-                                        <div class="form-group">
-                                            {!! Form::submit('Enviar comentario', ['class'=>'btn btn-primary']) !!}
-                                        </div>
-                                        {!! Form::close() !!}
+                            @if($reply->is_active == 1)
+                                <!-- Nested Comment -->
+                                <div id="nested-comment" class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="{{ $reply->photo }}" height="64px" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ $reply->author }}
+                                            <small>{{ $reply->created_at->format('d-m-Y H:m') }}</small>
+                                        </h4>
+                                        <p>{{ $reply->body }}</p>
                                     </div>
+                                    <!-- End Nested Comment -->
                                 </div>
-                                <!-- End Nested Comment -->
-                            </div>
+                            @endif
                         @endforeach
-                    @endif
+                            <div class="comment-reply-container">
+                                <button class="toggle-reply btn btn-primary pull-right">Responder</button>
+                                <div class="comment-reply  col-sm-6">
+                                    {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                                    <div class="form-group">
+                                        <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                        {!! Form::label('body', 'Comentario:') !!}
+                                        {!! Form::textarea('body', null, ['class'=>'form-control', 'rows' => 1]) !!}
+                                    </div>
 
+                                    <div class="form-group">
+                                        {!! Form::submit('Enviar comentario', ['class'=>'btn btn-primary']) !!}
+                                    </div>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                    @else
+                        <div class="comment-reply-container">
+                            <button class="toggle-reply btn btn-primary pull-right">Responder</button>
+                            <div class="comment-reply  col-sm-6">
+                                {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                                <div class="form-group">
+                                    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                    {!! Form::label('body', 'Comentario:') !!}
+                                    {!! Form::textarea('body', null, ['class'=>'form-control', 'rows' => 1]) !!}
+                                </div>
+
+                                <div class="form-group">
+                                    {!! Form::submit('Enviar comentario', ['class'=>'btn btn-primary']) !!}
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endforeach
